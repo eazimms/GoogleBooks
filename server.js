@@ -1,3 +1,4 @@
+// Adding in all the stuff I will need to make this run
 const express = require("express"); 
 const mongoose = require("mongoose"); 
 const routes = require("./routes"); 
@@ -12,7 +13,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.use(routes); 
-
+// Not forgetting Mongolab this time so there isn't an issue deploying on heroku. 
 mongoose.connect(process.env.MONGOLAB|| "mongodb://localhost/googlebooks"); 
 
 app.listen(PORT, function() {

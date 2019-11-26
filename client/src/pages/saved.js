@@ -8,7 +8,7 @@ class Books extends Component {
     books: [], 
     title: "", 
     author: "", 
-    synopsis: "", 
+    description: "", 
     link: "", 
     image: "", 
   }; 
@@ -16,22 +16,22 @@ class Books extends Component {
   componentDidMount() {
     this.loadBooks(); 
   }
-
+// Loading books. 
   loadBooks = () => {
     API.getBooks()
       .then(res =>
-        this.setState({ books: res.data, title: "", author: "", synopsis: "", })
+        this.setState({ books: res.data, title: "", author: "", description: "", })
         )
         .catch(err => console.log(err));  
 
   }; 
-
+// Delete button to remove from DB. 
   deleteBooks = id => {
       API.deleteBook(id)
         .then(res => this.loadBooks())
         .catch(err => console.log(err)); 
   }; 
-
+// Handling input changes
   handleInputChange = event => {
     const {name, value} = event.target; 
     this.setState({
@@ -39,14 +39,14 @@ class Books extends Component {
     }); 
     
   }; 
-
+// Function to handle submit of form
   handleFormSubmit = event => {
     event.preventDefault(); 
     if (this.state.title && this.state.author){
       API.saveBook({
         title: this.state.title, 
         author: this.state.author, 
-        synopsis: this.state.synopsis
+        description: this.state.description
 
       })
         .then(res => this.loadBooks())
