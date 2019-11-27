@@ -1,6 +1,7 @@
 import React, {Component} from "react"; 
 import axios from "axios"; 
-import {Row, Col } from "../components/"
+import {Row, Col } from "../components/Grid"; 
+import SaveBtn from "../components/SaveBtn"; 
 
 class Search extends Component{
   state = {
@@ -25,6 +26,46 @@ class Search extends Component{
       })
       .catch(err => console.log(err)); 
   }; 
+
+  handleInput = event =>{
+    const { name, value} = event.target; 
+
+    this.setState({
+      [name]: value
+    }); 
+  }; 
+
+  render() {
+    return(
+      <Container>
+        <Row>
+
+          <form>
+            <Input
+            value={this.state.title}
+            onChange={this.state.handleInputChange}
+            name="title"
+            placeholder="Title (required)"
+            />
+            <Input
+            value={this.state.author}
+            onChange={this.state.handleInputChange}
+            name="author"
+            placeholder="Author (required"
+            />
+            <FormBtn
+            disabled={!(this.state.author && title)}
+            onClick={this.handleFormSubmit}
+            >Submit search
+            </FormBtn>
+          </form>
+
+        </Row>
+        
+      </Container>
+      
+    )
+  }
 
 
 }

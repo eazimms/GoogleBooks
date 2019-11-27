@@ -1,6 +1,9 @@
 import React, {Component} from "react"; 
 import {Link} from "react-router-dom"; 
 import API from "../utils/API"; 
+import {Row, Col} from "../components/Grid"; 
+import {List} from "../components/List"; 
+import DeleteBtn from "../components/DeleteBtn";
 
 class Books extends Component {
 
@@ -56,30 +59,27 @@ class Books extends Component {
 
   render() {
     return(
-      <Container>
-        <Row>
-
-          <form>
-            <Input
-            value={this.state.title}
-            onChange={this.state.handleInputChange}
-            name="title"
-            placeholder="Title (required)"
-            />
-            <Input
-            value={this.state.author}
-            onChange={this.state.handleInputChange}
-            name="author"
-            placeholder="Author (required"
-            />
-            <FormBtn
-            disabled={!(this.state.author && title)}
-            onClick={this.handleFormSubmit}
-            ></FormBtn>
-          </form>
-
-        </Row>
-      </Container>
-    )
+      <Col size="md-6 sm-12">
+          <Jumbotron>
+            <h1>Saved Books</h1>
+          </Jumbotron>
+          {this.state.books.length ? (
+            <List>
+              {this.state.books.map(book => (
+                <ListItem key={book._id}>
+                  <strong>
+                    {book.title} by {book.author}
+                  </strong>
+                  <DeleteBtn onClick={() => this.deleteBooks(book._id)} />
+                </ListItem>
+              ))}
+            </List>
+          ): (
+            <h3>No books saved.</h3>
+          )}
+        </Col>
+    ); 
   }
 }
+
+export default saved; 
